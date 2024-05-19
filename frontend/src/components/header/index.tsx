@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyledHeader } from "./styles";
-
+import { Logo } from "../../assets";
 
 
 
 
 export const AppHeader =()=>{
-
-    const [email, setEmail] = useState('')
     return(
         <StyledHeader>
-            <img src="frontend/src/assets/logo.png" alt="logo-postaqui"/>
+            <img className="Logo" src={Logo} alt="logo-postaqui"/>
             <h1>Teste Calculadora Postaqui</h1>
         </StyledHeader>
     )

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
-display:flex;
-align-items:center;
-width:100%;
-height:100px;
+margin:0 auto;
+width:50%;
+height:100%;
 background-color:#E1E1E1;
+text-align:center;
 .Logo{
-    width:200px;
-    height:200px;
+    width:255px;
+    height:74px;
 }
 `

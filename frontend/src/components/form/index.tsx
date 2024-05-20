@@ -46,70 +46,70 @@ export const AppForm = () =>{
                 <Grid item xs={12}>
                     <h1>Dados de Origem</h1>
                 </Grid>
-                <Grid item md={10} sm={12} xs={12}>
+                <Grid item md={8} xl={10} sm={12} xs={12}>
                     <TextField
                     required
                     label="Nome completo"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={2} sm={12} xs={12}>
+                <Grid item md={4} xl={2} sm={12} xs={12}>
                     <TextField
                     required
                     label="CPF"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={3} sm={12} xs={12}>
+                <Grid item md={4} xl={3} sm={12} xs={12}>
                     <TextField
                     required
                     label="Telefone"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={9} sm={12} xs={12}>
+                <Grid item md={8} xl={9} sm={12} xs={12}>
                     <TextField
                     required
                     label="Email"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={2} sm={12} xs={12}>
+                <Grid item md={5} xl={2} sm={12} xs={12}>
                     <TextField
                     required
                     label="CEP"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={5} xs={12}>
+                <Grid item md={7} xl={5} xs={12}>
                     <TextField
                     required
                     label="Estado"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={5} xs={12}>
+                <Grid item md={6} xl={5} xs={12}>
                     <TextField
                     required
                     label="Cidade"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={5} xs={12}>
+                <Grid item md={6} xl={5} xs={12}>
                     <TextField
                     required
                     label="Bairro"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={5} xs={12}>
+                <Grid item md={9} xl={5} xs={12}>
                     <TextField
                     required
                     label="Rua"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={2} xs={12}>
+                <Grid item md={3} xl={2} xs={12}>
                     <TextField
                     required
                     label="Número"

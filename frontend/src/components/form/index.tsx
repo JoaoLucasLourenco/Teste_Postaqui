@@ -21,15 +21,15 @@ export const AppForm = () =>{
         numero: yup.string().required("Campo necessário!"),
         complemento: yup.string().required("Campo necessário!")
     })
-
-    const [defaultValues] = useState<IOriginDesinyInputModels>({
+    
+    const [defaultValues, setDefaultValues] = useState<IOriginDesinyInputModels>({
         nome: '',
         email: '',
         cpf: '',
         telefone: '',
         cep: '',
         estado: '',
-        cidade: '',
+        cidade: '', 
         bairro: '',
         rua: '',
         numero: '',
@@ -38,73 +38,78 @@ export const AppForm = () =>{
     return(
         
         <StyledForm>
-            <Grid container spacing={4}  xs={10}>
-
-                <Grid item xs={6}>
+            <Grid container spacing={4} 
+                textAlign='center'
+                direction="row" 
+                justifyContent="center"
+                alignItems="center">
+                <Grid item xs={12}>
+                    <h1>Dados de Origem</h1>
+                </Grid>
+                <Grid item md={10} sm={12} xs={12}>
                     <TextField
                     required
                     label="Nome completo"
                     fullWidth
-                    onChange={e=>defaultValues}
                     />
                 </Grid>
-                <Grid item xs={3} >
+                <Grid item md={2} sm={12} xs={12}>
                     <TextField
                     required
                     label="CPF"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={3} sm={12} xs={12}>
                     <TextField
                     required
                     label="Telefone"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={9} sm={12} xs={12}>
                     <TextField
                     required
                     label="Email"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item md={2} sm={12} xs={12}>
                     <TextField
                     required
                     label="CEP"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={5} xs={12}>
                     <TextField
                     required
                     label="Estado"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item md={5} xs={12}>
                     <TextField
                     required
                     label="Cidade"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item md={5} xs={12}>
                     <TextField
                     required
                     label="Bairro"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item md={5} xs={12}>
                     <TextField
                     required
                     label="Rua"
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item md={2} xs={12}>
                     <TextField
                     required
                     label="Número"
@@ -112,18 +117,17 @@ export const AppForm = () =>{
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                     <TextField
                     label="Complemento"
                     fullWidth
                     />
                 </Grid>
 
-                <Grid item>
-                    <Button variant='contained' type='button'>Avançar</Button>
+                <Grid item xl={3} sm={12} xs={12} md={6}>
+                    <Button variant='contained' type='button' size='large' disableElevation fullWidth>Avançar</Button>
                 </Grid>
             </Grid>
-
                 
 
         </StyledForm>

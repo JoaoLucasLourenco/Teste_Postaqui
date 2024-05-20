@@ -35,6 +35,8 @@ export const AppForm = () =>{
         numero: '',
         complemento: ''
       })
+
+    let origemOuDestino = true
     return(
         
         <StyledForm>
@@ -44,72 +46,72 @@ export const AppForm = () =>{
                 justifyContent="center"
                 alignItems="center">
                 <Grid item xs={12}>
-                    <h1>Dados de Origem</h1>
+                    <h1>{origemOuDestino?'Dados de Origem':'Dados de Destino'}</h1>
                 </Grid>
-                <Grid item md={8} xl={10} sm={12} xs={12}>
+                <Grid item sm={12} md={8} xl={9}>
                     <TextField
                     required
                     label="Nome completo"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={4} xl={2} sm={12} xs={12}>
+                <Grid item sm={12} md={4} xl={3}>
                     <TextField
                     required
                     label="CPF"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={4} xl={3} sm={12} xs={12}>
+                <Grid item sm={12} md={4} xl={3}>
                     <TextField
                     required
                     label="Telefone"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={8} xl={9} sm={12} xs={12}>
+                <Grid item sm={12} md={8} xl={9}>
                     <TextField
                     required
                     label="Email"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={5} xl={2} sm={12} xs={12}>
+                <Grid item sm={12} md={5} xl={2} >
                     <TextField
                     required
                     label="CEP"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={7} xl={5} xs={12}>
+                <Grid item sm={12} md={7} xl={5}>
                     <TextField
                     required
                     label="Estado"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={6} xl={5} xs={12}>
+                <Grid item sm={12} md={6} xl={5}>
                     <TextField
                     required
                     label="Cidade"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={6} xl={5} xs={12}>
+                <Grid item sm={12} md={6} xl={5}>
                     <TextField
                     required
                     label="Bairro"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={9} xl={5} xs={12}>
+                <Grid item sm={12} md={9} xl={5}>
                     <TextField
                     required
                     label="Rua"
                     fullWidth
                     />
                 </Grid>
-                <Grid item md={3} xl={2} xs={12}>
+                <Grid item sm={12} md={3} xl={2}>
                     <TextField
                     required
                     label="Número"
@@ -117,14 +119,14 @@ export const AppForm = () =>{
                     fullWidth
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={12}>
                     <TextField
                     label="Complemento"
                     fullWidth
                     />
                 </Grid>
 
-                <Grid item xl={3} sm={12} xs={12} md={6}>
+                <Grid item sm={12} md={6} xl={3}>
                     <Button variant='contained' type='button' size='large' disableElevation fullWidth>Avançar</Button>
                 </Grid>
             </Grid>

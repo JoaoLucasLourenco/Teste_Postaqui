@@ -22,7 +22,7 @@ export const AppForm = () =>{
         complemento: yup.string().required("Campo necessário!")
     })
     
-    const [defaultValues, setDefaultValues] = useState<IOriginDesinyInputModels>({
+    const [defaultValues] = useState<IOriginDesinyInputModels>({
         nome: '',
         email: '',
         cpf: '',
@@ -40,7 +40,7 @@ export const AppForm = () =>{
     return(
         
         <StyledForm>
-            <Grid container spacing={4} 
+            <Grid container spacing={2}
                 textAlign='center'
                 direction="row" 
                 justifyContent="center"
@@ -127,7 +127,14 @@ export const AppForm = () =>{
                 </Grid>
 
                 <Grid item sm={12} md={6} xl={3}>
-                    <Button variant='contained' type='button' size='large' disableElevation fullWidth>Avançar</Button>
+                    <Button 
+                    variant='contained' 
+                    type='button' 
+                    size='large' 
+                    disableElevation 
+                    fullWidth>
+                        Avançar
+                    </Button>
                 </Grid>
             </Grid>
                 

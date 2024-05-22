@@ -9,7 +9,6 @@ interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote'
     pagAnterior?:'origem'|'destino'
     avancar?: () => void
-
 }
 
 
@@ -44,9 +43,11 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
         complemento: ''
       })
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
+    if (name === 'numero' && value === '' || /^[1-9]\d*$/.test(value)) {
+      setFormValues({ ...formValues, [name]: value })
+    }
     
-    setFormValues({ ...formValues, [name]: value });
     };
     
     return(

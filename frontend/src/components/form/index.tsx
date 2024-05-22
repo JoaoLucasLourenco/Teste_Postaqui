@@ -4,17 +4,14 @@ import * as yup from 'yup'
 import { IOriginDesinyInputModels } from '../../types/inputModels'
 import { useContext, useState } from 'react'
 import { PatternFormat } from 'react-number-format'
-import { AppContext } from '../../context/AppContext'
 import { useNavigate } from 'react-router'
 
 interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote' |'post'
-    pagAnterior?:'origem'|'destino'
-    avancar?: () => void
 }
 
 
-export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
+export const AppForm: React.FC<IAppFormProps> = ({tipo}) =>{
 
     const navigate = useNavigate()
     

@@ -3,7 +3,7 @@ import { StyledForm } from './styles'
 import * as yup from 'yup'
 import { IOriginDesinyInputModels } from '../../types/inputModels'
 import { useState } from 'react'
-import { Form } from '@unform/web'
+import { PatternFormat } from 'react-number-format'
 
 interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote'
@@ -32,9 +32,9 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
     
     const [formValues, setFormValues] = useState<IOriginDesinyInputModels>({
         nome: '',
-        email: '',
-        cpf: '',
-        telefone: NaN,
+        email: '',  
+        cpf: NaN,
+        phone: NaN,
         cep: NaN,
         estado: '',
         cidade: '', 
@@ -45,6 +45,7 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
       })
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    
     setFormValues({ ...formValues, [name]: value });
     };
     
@@ -72,27 +73,27 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4} xl={3}>
-          <TextField
-            required
-            label='CPF'
-            fullWidth
-            placeholder='000.000.000-00'
-            name='cpf'
-            value={formValues.cpf}
-            onChange={handleInputChange}
-          />
+          <PatternFormat format='###.###.###-##'
+          required
+          label='CPF'
+          fullWidth
+          value={formValues.cpf}
+          name='cpf'
+          placeholder='000.000.000-00'
+          onChange={handleInputChange}
+          customInput={TextField}/>
         </Grid>
         <Grid item xs={12} sm={12} md={4} xl={3}>
-          <TextField
+          <PatternFormat format='+55 (##) # ####-####'
             required
-            label='Telefone'
-            fullWidth
-            placeholder='(99) 99999-9999'
-            type='number'
-            name='telefone'
-            value={formValues.telefone}
-            onChange={handleInputChange}
-          />
+            label="Telefone"
+            name='phone'
+            placeholder='+55 (99) 9 9999-9999'
+            onChange={handleInputChange} 
+            fullWidth 
+            value={formValues.phone} 
+            customInput={TextField}
+            />
         </Grid>
         <Grid item xs={12} sm={12} md={8} xl={9}>
           <TextField
@@ -106,16 +107,15 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5} xl={2}>
-          <TextField
-            required
-            label='CEP'
-            fullWidth
-            placeholder='37.140-000'
-            type='number'
-            name='cep'
-            value={formValues.cep}
-            onChange={handleInputChange}
-          />
+          <PatternFormat format='##.###-###'
+          required
+          label='CEP'
+          fullWidth
+          placeholder='37.140-000'
+          name='cep'
+          value={formValues.cep}
+          onChange={handleInputChange}
+          customInput={TextField}/>
         </Grid>
         <Grid item xs={12} sm={12} md={7} xl={5}>
           <TextField
@@ -178,6 +178,7 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
             onChange={handleInputChange}
           />
         </Grid>
+        
         <Grid item xs={12} sm={12} md={6} xl={3.5}>
           <Box display='flex'>        
           {tipo==='origem'?null:<Button variant='text' fullWidth>Voltar</Button>}
@@ -185,6 +186,7 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
           </Box>
         </Grid>
       </Grid>
+      
     </StyledForm>
     )
 }

@@ -1,8 +1,8 @@
 export interface IOriginDesinyInputModels {
     nome: string;
     email: string;
-    cpf: string;
-    telefone: number;
+    cpf: number;
+    phone: number;
     cep: number;
     estado: string;
     cidade: string;

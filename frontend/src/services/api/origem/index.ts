@@ -18,16 +18,35 @@ const getOrigem = async (): Promise<IOriginDesinyInputModels|Error> =>{
     }
 }
 
-const updateOrigem = async (): Promise<any>  =>{
+const updateOrigem = async (dados: IOriginDesinyInputModels): Promise<void|Error>  =>{
+    try {
+        const {data} = await ApiDados.put('/origem/1',dados)
+        
+    } catch (error) {
+        console.error(error)
+        return new Error('Erro ao atualizar os dados da origem!')
+}}
 
+const createOrigem = async (dados:IOriginDesinyInputModels): Promise<string|Error>  =>{
+    try {
+        const {data} = await ApiDados.post('/origem',dados)
+        if(data){
+            return 'Origem inserida com sucesso!'
+        }
+        return new Error('Erro ao adicionar os dados da origem!')
+    } catch (error) {
+        console.error(error)
+        return new Error('Erro ao adicionar os dados da origem!')
+}}
+
+
+const deleteOrigem = async (): Promise<void|Error>  =>{
+    try {
+        await ApiDados.delete('/origem/1')
+    } catch (error) {
+        console.error(error)
+        return new Error('Erro ao deletar os dados da origem!')
 }
-
-const createOrigem = async (): Promise<any>  =>{
-
-}
-
-const deleteOrigem = async (): Promise<any>  =>{
-
 }
 
 export const OrigemService = {

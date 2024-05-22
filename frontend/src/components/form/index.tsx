@@ -1,19 +1,22 @@
-import {Box, Button, ButtonGroup, Grid, TextField} from '@mui/material'
+import {Box, Button, Grid, TextField} from '@mui/material'
 import { StyledForm } from './styles'
 import * as yup from 'yup'
 import { IOriginDesinyInputModels } from '../../types/inputModels'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { PatternFormat } from 'react-number-format'
+import { AppContext } from '../../context/AppContext'
+import { useNavigate } from 'react-router'
 
 interface IAppFormProps{
-    tipo: 'origem'|'destino'|'pacote'
+    tipo: 'origem'|'destino'|'pacote' |'post'
     pagAnterior?:'origem'|'destino'
     avancar?: () => void
 }
 
 
 export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
-    
+
+    const navigate = useNavigate()
     
     const schema = yup.object<IOriginDesinyInputModels>().shape({
         nome: yup.string().required("Campo obrigatório para prosseguir!"),
@@ -42,16 +45,19 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
         numero: NaN,
         complemento: ''
       })
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    if (name === 'numero' && value === '' || /^[1-9]\d*$/.test(value)) {
+      const { name, value } = e.target
       setFormValues({ ...formValues, [name]: value })
     }
-    
-    };
+
+    const handleAvancar = ()=>{
+        navigate('/destino')
+    }
     
     return(
-        <StyledForm>
+      <>
+      <StyledForm>
       <Grid
         container
         spacing={2}
@@ -182,12 +188,22 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
         
         <Grid item xs={12} sm={12} md={6} xl={3.5}>
           <Box display='flex'>        
-          {tipo==='origem'?null:<Button variant='text' fullWidth>Voltar</Button>}
-          <Button variant='contained' fullWidth disableElevation>Avançar</Button>
+            {tipo==='origem'?null:<Button variant='text' fullWidth>Voltar</Button>}
+
+
+            <Button variant='contained'
+            onClick={handleAvancar}
+            fullWidth 
+            disableElevation>
+              Avançar
+            </Button>
+
+
           </Box>
         </Grid>
       </Grid>
       
     </StyledForm>
+    </>
     )
 }

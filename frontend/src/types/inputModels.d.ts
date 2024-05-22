@@ -10,4 +10,5 @@ export interface IOriginDesinyInputModels {
     rua: string;
     numero: number;
     complemento?:string;
+    setData?: (data: IOriginDesinyInputModels)=>void;
 }

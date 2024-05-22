@@ -52,11 +52,35 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
     }
 
     const handleAvancar = ()=>{
-        navigate('/destino')
+      switch(tipo){
+        case 'origem':
+          navigate('/destino')
+          break;
+        case 'destino':
+          navigate('/pacote')
+          break;
+        case 'pacote':
+          navigate('/post')
+          break;
+      }
     }
     
+    const handleVoltar = ()=>{
+      switch(tipo){
+        case 'destino':
+          navigate('/origem')
+          break;
+        case 'pacote':
+          navigate('/destino')
+          break;
+        case 'post':
+          navigate('/pacote')
+          break;
+      }
+    }
+
+
     return(
-      <>
       <StyledForm>
       <Grid
         container
@@ -188,7 +212,11 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
         
         <Grid item xs={12} sm={12} md={6} xl={3.5}>
           <Box display='flex'>        
-            {tipo==='origem'?null:<Button variant='text' fullWidth>Voltar</Button>}
+            {tipo==='origem'?null:<Button variant='text' 
+            onClick={handleVoltar} 
+            fullWidth>
+              Voltar
+            </Button>}
 
 
             <Button variant='contained'
@@ -204,6 +232,5 @@ export const AppForm: React.FC<IAppFormProps> = ({tipo, pagAnterior}) =>{
       </Grid>
       
     </StyledForm>
-    </>
     )
 }

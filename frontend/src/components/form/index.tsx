@@ -1,7 +1,7 @@
 import {Box, Button, Grid, TextField} from '@mui/material'
 import { StyledForm } from './styles'
 import * as yup from 'yup'
-import { IOriginDesinyInputModels } from '../../types/inputModels'
+import { IOriginDesinyInputModels, IPackageInputModels } from '../../types/inputModels'
 import { useContext, useState } from 'react'
 import { PatternFormat } from 'react-number-format'
 import { useNavigate } from 'react-router'
@@ -45,7 +45,25 @@ export const AppForm: React.FC = () =>{
         complemento: ''
       })
 
+    const [packageValues, setPackageValues] = useState<IPackageInputModels>({
+      peso: NaN,
+      altura: NaN,
+      largura: NaN,
+      comprimento: NaN,
+      logReversa: false,
+      avisoRecebimento: false,
+      maosProprias: false,
+      valorMercadoria: NaN,
+      qtdItens: NaN,
+      descItens: ''
+    })
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target
+      setFormValues({ ...formValues, [name]: value })
+    }
+
+    const handleInputChangePackage = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
       setFormValues({ ...formValues, [name]: value })
     }

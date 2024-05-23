@@ -9,8 +9,7 @@ import { AppProvider } from '../context/AppContext';
 export const  AppRoutes = () =>{
     return(
             <Routes>
-                <Route path='/origem' element={<Home page='origem'/>}/>
-                <Route path='/destino' element={<Home page='destino'/>}/>
+                <Route path='/origem' element={<Home/>}/>
                 <Route path='*' element={<Navigate to='/origem'/>}/>
             </Routes>
     )

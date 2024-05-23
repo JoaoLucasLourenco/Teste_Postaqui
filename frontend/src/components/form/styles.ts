@@ -7,7 +7,6 @@ display:flex;
 align-items:center;
 justify-cotent:center;
 background-color:#EDEDED;
-width:80%;
 padding:2em;
 border-radius:20px;
 `

@@ -31,8 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "mock": "json-server -w -p 3333 ./src/mock/database.json"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -57,7 +56,6 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.3.0",
-    "json-server": "^1.0.0-beta.0",
     "typescript-eslint": "^7.10.0"
   }
 }

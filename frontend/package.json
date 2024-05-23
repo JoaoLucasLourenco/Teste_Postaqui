@@ -56,7 +56,6 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.3.0",
-    "json-server": "^1.0.0-beta.0",
     "typescript-eslint": "^7.10.0"
   }
 }

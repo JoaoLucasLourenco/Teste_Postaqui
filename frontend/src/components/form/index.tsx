@@ -7,6 +7,7 @@ import { NumericFormat, PatternFormat } from 'react-number-format'
 import { useNavigate } from 'react-router'
 import { on } from 'events'
 import { Group } from '@mui/icons-material'
+import { AppHeader } from '../header'
 
 interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote' |'post'
@@ -129,7 +130,11 @@ export const AppForm: React.FC = () =>{
 
     
     return(
-      <Box width='80%' margin='20px auto'>
+      <Box bgcolor={tipo!='post'?'#FFCD40':'#FFFBFB'} 
+      height={tipo=='origem'?'100vh':'100%'} 
+      padding={tipo!='origem'?'0 0 40px 0':'0'}>
+      <Box width='80%' margin='0 auto'>
+        <AppHeader/>
         <Grid
         textAlign='center'
         direction='row'
@@ -622,6 +627,7 @@ export const AppForm: React.FC = () =>{
           </Grid>
         </StyledForm>
         }
+      </Box>
       </Box>
     )
 }

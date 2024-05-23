@@ -107,7 +107,7 @@ export const AppForm: React.FC = () =>{
           setTipo('pacote')
           break;
         case 'pacote':
-          navigate('/post')
+          setTipo('post')
           break;
       }
     }
@@ -135,11 +135,12 @@ export const AppForm: React.FC = () =>{
         direction='row'
         justifyContent='center'
         alignItems='center'
-        container 
-        margin='10px auto'
+        padding='2em'
+        container
+        xs={12}
         spacing={4}
         >
-          <Grid item xs={3} display={tipo==='origem'?'none':'block'}>
+          <Grid item md={4} xl={3} sm={12} xs={12} display={tipo=='origem'?'none':'block'}>
             <Card>
               <CardContent>
                 <h2>Origem</h2>
@@ -156,7 +157,7 @@ export const AppForm: React.FC = () =>{
             </Card>
           </Grid>
 
-          <Grid item xs={3} display={tipo!='pacote'?'none':'block'}>
+          <Grid item xl={3} md={4} sm={12} xs={12} display={tipo=='destino'?'none':tipo=='origem'?'none':'block'}>
             <Card>
               <CardContent>
                 <h2>Destino</h2>
@@ -173,8 +174,7 @@ export const AppForm: React.FC = () =>{
             </Card>
           </Grid>
 
-
-          <Grid item xs={3} display={tipo!='post'?'none':'block'}>
+          <Grid item xl={3} md={4} sm={12} xs={12} display={tipo!='post'?'none':'block'}>
             <Card>
               <CardContent>
                 <h2>Pacote</h2>
@@ -187,6 +187,7 @@ export const AppForm: React.FC = () =>{
             </Card>
           </Grid>
         </Grid>
+        {tipo!='post'?
         <StyledForm>
         {tipo!='pacote'?
         <Box>
@@ -578,13 +579,49 @@ export const AppForm: React.FC = () =>{
                 </Button>
               </Box>
             </Grid>
-            
-            
           </Grid>
         </Box>
         }
         
+        </StyledForm>:
+        <StyledForm>
+          <Grid
+          container
+          spacing={2}
+          textAlign='center'
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
+          >
+            <Grid item xs={12}>
+            <h1>Valor final do frete</h1>
+            <p>O melhor frete para o seu destino é  <img src="https://s3-alpha-sig.figma.com/img/818f/49ee/47f6a26756d61546a068c1c460c5b4b3?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pjQJuLWYJEjwu7iylxT8iJlDzyC~GiuKCPc8cMWjMA8-B9PdLE6sdBKVyXc29RcVoci0~KG1kAgF40VHYoJ9Q967NsEAHdd4HQiZDL7uFQztbLXKxKNfF9oq46VsNwgUUiTOrFZbDc~7SiNQJ6m3yJ1DEyo9jzbbJguHGYsmP~twax9PllTozrBBxb9SeXCR3PPrD7HTmA7Iz4UtQ0~EO-jkzQdDhgj3STqrkHDGaypRrHDzoBvyAb8jONNRlnNjRWy91OiUAnG6FPfW~DmIeNtaoTUZlTcMu2StPp3tMk0oRoOTpEoo~Gpp6AUbqnHkB~DW5cICBlhiNjYlkisLWw__" alt="" width='100px' />  com o valor de R$150,00 com entrega no prazo de 5 dias uteis</p>
+            </Grid>
+
+
+
+
+            <Grid item xs={12} sm={12} md={6} xl={3.5}>
+              <Box display='flex'>        
+                <Button 
+                variant='text' 
+                onClick={handleVoltar} 
+                fullWidth>
+                  Voltar
+                </Button>
+
+                <Button 
+                variant='contained'
+                onClick={handleAvancar}
+                fullWidth 
+                disableElevation>
+                  Postar
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </StyledForm>
+        }
       </Box>
     )
 }

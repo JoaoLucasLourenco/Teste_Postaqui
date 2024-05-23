@@ -12,3 +12,16 @@ export interface IOriginDesinyInputModels {
     complemento?:string;
     setData?: (data: IOriginDesinyInputModels)=>void;
 }
+
+export interface IPackageInputModels{
+    peso: number;
+    altura: number;
+    largura: number;
+    comprimento: number;
+    logReversa: boolean;
+    avisoRecebimento: boolean;
+    maosProprias: boolean;
+    valorMercadoria: number;
+    qtdItens: number;
+    descItens: string;
+}

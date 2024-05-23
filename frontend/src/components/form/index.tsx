@@ -65,7 +65,7 @@ export const AppForm: React.FC = () =>{
 
     const handleInputChangePackage = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
-      setFormValues({ ...formValues, [name]: value })
+      setPackageValues({ ...packageValues, [name]: value })
     }
 
     const handleAvancar = ()=>{

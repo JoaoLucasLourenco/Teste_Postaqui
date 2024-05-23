@@ -1,13 +1,12 @@
 import {Box, Button, Card, CardContent, CardHeader, FormControlLabel, FormGroup, Grid, InputAdornment, Switch, TextField, colors} from '@mui/material'
 import { StyledForm } from './styles'
-import * as yup from 'yup'
 import { IOriginDesinyInputModels, IPackageInputModels } from '../../types/inputModels'
 import { useContext, useState } from 'react'
 import { NumericFormat, PatternFormat } from 'react-number-format'
 import { useNavigate } from 'react-router'
-import { on } from 'events'
-import { Group } from '@mui/icons-material'
 import { AppHeader } from '../header'
+import { isValidCEP, isValidCPF, isValidEmail, isValidTelefone, limparNumeros } from '../../functions/functions'
+import { number } from 'yup'
 
 interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote' |'post' |'codigo'
@@ -20,24 +19,10 @@ export const AppForm: React.FC = () =>{
 
     const [tipo,setTipo] = useState('origem')
 
-
-    const schema = yup.object<IOriginDesinyInputModels>().shape({
-        nome: yup.string().required("Campo obrigatório para prosseguir!"),
-        email: yup.string().min(6).email("Insira um email válido!").required("Campo obrigatório para prosseguir!"),
-        cpf: yup.string().min(11).required("Campo obrigatório para prosseguir!"),
-        telefone: yup.number().min(11).required("Campo obrigatório para prosseguir!"),
-        cep: yup.number().min(8,'O campo deve ter pelo menos ').required("Campo obrigatório para prosseguir!"),
-        estado: yup.string().required("Campo obrigatório para prosseguir!"),
-        cidade: yup.string().required("Campo obrigatório para prosseguir!"),
-        bairro: yup.string().required("Campo obrigatório para prosseguir!"),
-        rua: yup.string().required("Campo obrigatório para prosseguir!"),
-        numero: yup.number().positive().integer().required("Campo obrigatório para prosseguir!"),
-        complemento: yup.string().default('')
-    })
-    
     const [formValues, setFormValues] = useState<IOriginDesinyInputModels>({
         nome: '',
-        email: '',  
+        email: '',
+        uf:'' ,
         cpf: NaN,
         phone: NaN,
         cep: NaN,
@@ -51,7 +36,8 @@ export const AppForm: React.FC = () =>{
 
     const [formDestinoValues, setFormDestinoValues] = useState<IOriginDesinyInputModels>({
       nome: '',
-      email: '',  
+      email: '',
+      uf:'' , 
       cpf: NaN,
       phone: NaN,
       cep: NaN,
@@ -77,6 +63,9 @@ export const AppForm: React.FC = () =>{
     })
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
+      if(isValidCEP(formValues.cep.toString())){
+
+      }
       setFormValues({ ...formValues, [name]: value })
     }
 
@@ -98,11 +87,26 @@ export const AppForm: React.FC = () =>{
       [name]: checked,
     }))
     }
-
+    
     const handleAvancar = ()=>{
       switch(tipo){
         case 'origem':
-          setTipo('destino')
+              if(!isValidEmail(formValues.email)){
+                alert('Insira um email válido para continuar')
+              }
+              else if(!isValidCPF(formValues.cpf.toString())){
+                alert('Insira um CPF válido para continuar')
+              }
+              else if(!isValidTelefone(formValues.phone.toString())){
+                alert('Insira um telefone válido para continuar')
+              }
+              else if(!isValidCEP(formValues.cep.toString())){
+                alert('Insira um CEP válido para continuar')
+              }
+              else{
+                setTipo('destino')
+              }
+          
           break;
         case 'destino':
           setTipo('pacote')
@@ -110,8 +114,8 @@ export const AppForm: React.FC = () =>{
         case 'pacote':
           setTipo('post')
           break;
-      }
     }
+  }
     
     const handleVoltar = ()=>{
       switch(tipo){
@@ -159,14 +163,13 @@ export const AppForm: React.FC = () =>{
         alignItems='center'
         padding='2em'
         container
-        xs={12}
         spacing={4}
         >
           <Grid item md={4} xl={3} sm={12} xs={12} display={tipo=='origem'?'none':'block'}>
             <Card>
               <CardContent>
                 <h2>Origem</h2>
-                <p>{formValues.nome} - 
+                <p>{formValues.phone} - 
                 {formValues.cpf} - 
                 {formValues.cep} - 
                 {formValues.cidade} - 
@@ -216,6 +219,7 @@ export const AppForm: React.FC = () =>{
         </Grid>
         {tipo!='post'?
         <StyledForm>
+
         {tipo!='pacote'?
         <Box>
         <Grid
@@ -233,8 +237,8 @@ export const AppForm: React.FC = () =>{
             <TextField
               required
               label='Nome completo'
-              fullWidth
               name='nome'
+              fullWidth
               value={tipo==='origem'?formValues.nome:formDestinoValues.nome}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
@@ -251,14 +255,14 @@ export const AppForm: React.FC = () =>{
             customInput={TextField}/>
           </Grid>
           <Grid item xs={12} sm={12} md={4} xl={3}>
-            <PatternFormat format='+55 (##) # ####-####'
+            <PatternFormat format='+55 (##) #####-####'
               required
               label="Telefone"
               name='phone'
-              placeholder='+55 (99) 9 9999-9999'
+              placeholder='+55 (99) 99999-9999'
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange} 
-              fullWidth 
-              value={tipo==='origem'?formValues.phone:formDestinoValues.phone} 
+              fullWidth
+              value={tipo==='origem'?formValues.phone:formDestinoValues.phone}
               customInput={TextField}
               />
           </Grid>
@@ -278,7 +282,7 @@ export const AppForm: React.FC = () =>{
             required
             label='CEP'
             fullWidth
-            placeholder='37.140-000'
+            placeholder='00.000-000'
             name='cep'
             value={tipo==='origem'?formValues.cep:formDestinoValues.cep}
             onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
@@ -325,7 +329,7 @@ export const AppForm: React.FC = () =>{
             />
           </Grid>
           <Grid item xs={12} sm={12} md={3} xl={2}>
-          <NumericFormat 
+          <NumericFormat
                   required
                   label='Número'
                   fullWidth
@@ -407,7 +411,7 @@ export const AppForm: React.FC = () =>{
                 placeholder='Em gramas'
                 allowNegative={false}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">g</InputAdornment>,
+                  endAdornment: <InputAdornment position="end">g</InputAdornment>
                 }}
                 value={packageValues.peso}
                 onChange={handleInputChangePackage}
@@ -611,7 +615,12 @@ export const AppForm: React.FC = () =>{
         }
         
         </StyledForm>:
-        <StyledForm>
+        <Box margin='0 auto'
+        display='flex'
+        align-items='center'
+        justify-cotent='center'
+        bgcolor='#EDEDED'
+        padding='2em'>
           <Grid
           container
           spacing={2}
@@ -647,7 +656,7 @@ export const AppForm: React.FC = () =>{
               </Box>
             </Grid>
           </Grid>
-        </StyledForm>
+        </Box>
         }
       </Box>
       </Box>

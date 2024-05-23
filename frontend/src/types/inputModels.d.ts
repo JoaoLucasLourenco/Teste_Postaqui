@@ -1,6 +1,7 @@
 export interface IOriginDesinyInputModels {
     nome: string;
     email: string;
+    uf:string;
     cpf: number;
     phone: number;
     cep: number;
@@ -10,7 +11,6 @@ export interface IOriginDesinyInputModels {
     rua: string;
     numero: number;
     complemento?:string;
-    setData?: (data: IOriginDesinyInputModels)=>void;
 }
 
 export interface IPackageInputModels{

@@ -47,6 +47,21 @@ export const AppForm: React.FC = () =>{
         complemento: ''
       })
 
+    
+    const [formDestinoValues, setFormDestinoValues] = useState<IOriginDesinyInputModels>({
+      nome: '',
+      email: '',  
+      cpf: NaN,
+      phone: NaN,
+      cep: NaN,
+      estado: '',
+      cidade: '', 
+      bairro: '',
+      rua: '',
+      numero: NaN,
+      complemento: ''
+    })
+
     const [packageValues, setPackageValues] = useState<IPackageInputModels>({
       peso: NaN,
       altura: NaN,
@@ -64,11 +79,16 @@ export const AppForm: React.FC = () =>{
       setFormValues({ ...formValues, [name]: value })
     }
 
+
+    const handleInputDestinoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target
+      setFormDestinoValues({ ...formDestinoValues, [name]: value })
+    }
+
     const handleInputChangePackage = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
       setPackageValues({ ...packageValues, [name]: value })
     }
-    
 
     const handleSwitchesChangePackage = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, checked } = e.target;
@@ -128,8 +148,8 @@ export const AppForm: React.FC = () =>{
             label='Nome completo'
             fullWidth
             name='nome'
-            value={formValues.nome}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.nome:formDestinoValues.nome}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4} xl={3}>
@@ -137,10 +157,10 @@ export const AppForm: React.FC = () =>{
           required
           label='CPF'
           fullWidth
-          value={formValues.cpf}
+          value={tipo==='origem'?formValues.cpf:formDestinoValues.cpf}
           name='cpf'
           placeholder='000.000.000-00'
-          onChange={handleInputChange}
+          onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           customInput={TextField}/>
         </Grid>
         <Grid item xs={12} sm={12} md={4} xl={3}>
@@ -149,9 +169,9 @@ export const AppForm: React.FC = () =>{
             label="Telefone"
             name='phone'
             placeholder='+55 (99) 9 9999-9999'
-            onChange={handleInputChange} 
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange} 
             fullWidth 
-            value={formValues.phone} 
+            value={tipo==='origem'?formValues.phone:formDestinoValues.phone} 
             customInput={TextField}
             />
         </Grid>
@@ -162,8 +182,8 @@ export const AppForm: React.FC = () =>{
             fullWidth
             placeholder='seuemail@email.com'
             name='email'
-            value={formValues.email}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.email:formDestinoValues.email}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5} xl={2}>
@@ -173,8 +193,8 @@ export const AppForm: React.FC = () =>{
           fullWidth
           placeholder='37.140-000'
           name='cep'
-          value={formValues.cep}
-          onChange={handleInputChange}
+          value={tipo==='origem'?formValues.cep:formDestinoValues.cep}
+          onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           customInput={TextField}/>
         </Grid>
         <Grid item xs={12} sm={12} md={7} xl={5}>
@@ -183,8 +203,8 @@ export const AppForm: React.FC = () =>{
             label='Estado'
             fullWidth
             name='estado'
-            value={formValues.estado}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.estado:formDestinoValues.estado}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={5}>
@@ -193,8 +213,8 @@ export const AppForm: React.FC = () =>{
             label='Cidade'
             fullWidth
             name='cidade'
-            value={formValues.cidade}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.cidade:formDestinoValues.cidade}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} xl={5}>
@@ -203,8 +223,8 @@ export const AppForm: React.FC = () =>{
             label='Bairro'
             fullWidth
             name='bairro'
-            value={formValues.bairro}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.bairro:formDestinoValues.bairro}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={9} xl={5}>
@@ -213,8 +233,8 @@ export const AppForm: React.FC = () =>{
             label='Rua'
             fullWidth
             name='rua'
-            value={formValues.rua}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.rua:formDestinoValues.rua}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={3} xl={2}>
@@ -225,8 +245,8 @@ export const AppForm: React.FC = () =>{
             fullWidth
             placeholder='999'
             name='numero'
-            value={formValues.numero}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.numero:formDestinoValues.numero}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         <Grid item xs={12} sm={12}>
@@ -234,8 +254,8 @@ export const AppForm: React.FC = () =>{
             label='Complemento'
             fullWidth
             name='complemento'
-            value={formValues.complemento}
-            onChange={handleInputChange}
+            value={tipo==='origem'?formValues.complemento:formDestinoValues.complemento}
+            onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
           />
         </Grid>
         
@@ -260,244 +280,244 @@ export const AppForm: React.FC = () =>{
         </Grid>
         
       </Grid>
-    </Box>:
+      </Box>:
       <Box margin={'0 auto'}>
-      <Grid
-        container
-        spacing={2}
-        textAlign='center'
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Grid item xs={12}>
-          <h1>Dados do Pacote</h1>
-        </Grid>
-
-
         <Grid
-        container
-        item
-        xs={12}
-        md={5}
-        spacing={4}
-        textAlign='center'
-        direction='row'
-        justifyContent='center'
-        alignItems='center'>
-
+          container
+          spacing={2}
+          textAlign='center'
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
+        >
           <Grid item xs={12}>
-          <NumericFormat 
-            required
-            label='Peso'
-            fullWidth
-            name='peso'
-            placeholder='Em gramas'
-            allowNegative={false}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">g</InputAdornment>,
-            }}
-            value={packageValues.peso}
-            onChange={handleInputChangePackage}
-            customInput={TextField}/>
-          </Grid>
-          <Grid item xs={12}>
-            <NumericFormat 
-              required
-              label='Altura'
-              fullWidth
-              name='altura'
-              placeholder='Em centímetros'
-              allowNegative={false}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
-              }}
-              value={packageValues.altura}
-              onChange={handleInputChangePackage}
-              customInput={TextField}/>
-          </Grid>
-          <Grid item xs={12}>
-            <NumericFormat 
-              required
-              label='Largura'
-              fullWidth
-              name='largura'
-              placeholder='Em centímetros'
-              allowNegative={false}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
-              }}
-              value={packageValues.largura}
-              onChange={handleInputChangePackage}
-              customInput={TextField}/>
-            </Grid>
-          <Grid item xs={12}  >
-            <NumericFormat 
-              required
-              label='Comprimento'
-              fullWidth
-              name='comprimento'
-              placeholder='Em centímetros'
-              allowNegative={false}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
-              }}
-              value={packageValues.comprimento}
-              onChange={handleInputChangePackage}
-              customInput={TextField}/>
+            <h1>Dados do Pacote</h1>
           </Grid>
 
-        </Grid>
-        
-        <Grid 
-        container
-        item
-        xs={12}
-        md={2}
-        spacing={2}
-        textAlign='center'
-        direction='row'
-        justifyContent='center'
-        alignItems='center'>
 
-          
-          <Grid item xs={12}>
-          <FormGroup>
-            <FormControlLabel
-              required
-              label='Lógica reversa'
-              name='logReversa'
-              control={
-                <Switch
-                  checked={packageValues.logReversa}
-                  name='logReversa'
-                  color='secondary'
-                  onChange={handleSwitchesChangePackage}
-                />
-              }
-            />
-
-            <FormControlLabel
-              required
-              control={
-                <Switch
-                  color='secondary'
-                  onChange={handleSwitchesChangePackage}
-                  checked={packageValues.avisoRecebimento}
-                  name='avisoRecebimento'
-                />
-              }
-              label="Aviso Recebimento"
-            />
-
-            <FormControlLabel
-              required
-              control={
-                <Switch
-                  color='secondary'
-                  onChange={handleSwitchesChangePackage}
-                  checked={packageValues.maosProprias}
-                  name='maosProprias'
-                />
-              }
-              label="Mãos próprias"
-            />
-          </FormGroup>
-          </Grid>
-        </Grid>
-
-        <Grid 
-        container
-        item
-        xs={12}
-        md={4}
-        spacing={3}
-        textAlign='center'
-        direction='row'
-        justifyContent='center'
-        alignItems='center'>
-
-            <Grid item xs={12}  >
-
-              <NumericFormat 
-              required
-              label='Valor da mercadoria'
-              fullWidth
-              name='valorMercadoria'
-              placeholder='Em reais'
-              decimalScale={2}
-              allowNegative={false}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">R$</InputAdornment>,
-              }}
-              value={packageValues.valorMercadoria}
-              onChange={handleInputChangePackage}
-              customInput={TextField}/>
-            </Grid>
-
-
-            <Grid item xs={12}  >
-
-              <NumericFormat 
-              required
-              label='Qauntidade de itens'
-              fullWidth
-              name='qtdItens'
-              placeholder='Em unidade'
-              decimalScale={0}
-              allowNegative={false}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">un</InputAdornment>,
-              }}
-              value={packageValues.valorMercadoria}
-              onChange={handleInputChangePackage}
-              customInput={TextField}/>
-
-            </Grid>
+          <Grid
+          container
+          item
+          xs={12}
+          md={5}
+          spacing={4}
+          textAlign='center'
+          direction='row'
+          justifyContent='center'
+          alignItems='center'>
 
             <Grid item xs={12}>
-              <TextField
+            <NumericFormat 
+              required
+              label='Peso'
+              fullWidth
+              name='peso'
+              placeholder='Em gramas'
+              allowNegative={false}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">g</InputAdornment>,
+              }}
+              value={packageValues.peso}
+              onChange={handleInputChangePackage}
+              customInput={TextField}/>
+            </Grid>
+            <Grid item xs={12}>
+              <NumericFormat 
                 required
-                label='Descrição dos itens'
+                label='Altura'
                 fullWidth
-                rows={5}
-                multiline
-                helperText={'Limite de caracteres '+packageValues.descItens.length+'/1000'}
-                name='descItens'
-                value={packageValues.descItens}
+                name='altura'
+                placeholder='Em centímetros'
+                allowNegative={false}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                }}
+                value={packageValues.altura}
                 onChange={handleInputChangePackage}
-              />
+                customInput={TextField}/>
+            </Grid>
+            <Grid item xs={12}>
+              <NumericFormat 
+                required
+                label='Largura'
+                fullWidth
+                name='largura'
+                placeholder='Em centímetros'
+                allowNegative={false}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                }}
+                value={packageValues.largura}
+                onChange={handleInputChangePackage}
+                customInput={TextField}/>
+              </Grid>
+            <Grid item xs={12}  >
+              <NumericFormat 
+                required
+                label='Comprimento'
+                fullWidth
+                name='comprimento'
+                placeholder='Em centímetros'
+                allowNegative={false}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                }}
+                value={packageValues.comprimento}
+                onChange={handleInputChangePackage}
+                customInput={TextField}/>
             </Grid>
 
-
-
-        </Grid>
-
-        
-        
+          </Grid>
           
-        <Grid item xs={12} sm={12} md={6} xl={3.5}>
-          <Box display='flex'>        
-            <Button 
-            variant='text' 
-            onClick={handleVoltar} 
-            fullWidth>
-              Voltar
-            </Button>
+          <Grid 
+          container
+          item
+          xs={12}
+          md={2}
+          spacing={2}
+          textAlign='center'
+          direction='row'
+          justifyContent='center'
+          alignItems='center'>
 
-            <Button 
-            variant='contained'
-            onClick={handleAvancar}
-            fullWidth 
-            disableElevation>
-              Avançar
-            </Button>
-          </Box>
+            
+            <Grid item xs={12}>
+            <FormGroup>
+              <FormControlLabel
+                required
+                label='Lógica reversa'
+                name='logReversa'
+                control={
+                  <Switch
+                    checked={packageValues.logReversa}
+                    name='logReversa'
+                    color='secondary'
+                    onChange={handleSwitchesChangePackage}
+                  />
+                }
+              />
+
+              <FormControlLabel
+                required
+                control={
+                  <Switch
+                    color='secondary'
+                    onChange={handleSwitchesChangePackage}
+                    checked={packageValues.avisoRecebimento}
+                    name='avisoRecebimento'
+                  />
+                }
+                label="Aviso Recebimento"
+              />
+
+              <FormControlLabel
+                required
+                control={
+                  <Switch
+                    color='secondary'
+                    onChange={handleSwitchesChangePackage}
+                    checked={packageValues.maosProprias}
+                    name='maosProprias'
+                  />
+                }
+                label="Mãos próprias"
+              />
+            </FormGroup>
+            </Grid>
+          </Grid>
+
+          <Grid 
+          container
+          item
+          xs={12}
+          md={4}
+          spacing={3}
+          textAlign='center'
+          direction='row'
+          justifyContent='center'
+          alignItems='center'>
+
+              <Grid item xs={12}  >
+
+                <NumericFormat 
+                required
+                label='Valor da mercadoria'
+                fullWidth
+                name='valorMercadoria'
+                placeholder='Em reais'
+                decimalScale={2}
+                allowNegative={false}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">R$</InputAdornment>,
+                }}
+                value={packageValues.valorMercadoria}
+                onChange={handleInputChangePackage}
+                customInput={TextField}/>
+              </Grid>
+
+
+              <Grid item xs={12}  >
+
+                <NumericFormat 
+                required
+                label='Qauntidade de itens'
+                fullWidth
+                name='qtdItens'
+                placeholder='Em unidade'
+                decimalScale={0}
+                allowNegative={false}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">un</InputAdornment>,
+                }}
+                value={packageValues.valorMercadoria}
+                onChange={handleInputChangePackage}
+                customInput={TextField}/>
+
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  label='Descrição dos itens'
+                  fullWidth
+                  rows={5}
+                  multiline
+                  helperText={'Limite de caracteres '+packageValues.descItens.length+'/1000'}
+                  name='descItens'
+                  value={packageValues.descItens}
+                  onChange={handleInputChangePackage}
+                />
+              </Grid>
+
+
+
+          </Grid>
+
+          
+          
+            
+          <Grid item xs={12} sm={12} md={6} xl={3.5}>
+            <Box display='flex'>        
+              <Button 
+              variant='text' 
+              onClick={handleVoltar} 
+              fullWidth>
+                Voltar
+              </Button>
+
+              <Button 
+              variant='contained'
+              onClick={handleAvancar}
+              fullWidth 
+              disableElevation>
+                Avançar
+              </Button>
+            </Box>
+          </Grid>
+          
+          
         </Grid>
-        
-        
-      </Grid>
-    </Box>
+      </Box>
       }
       
     </StyledForm>

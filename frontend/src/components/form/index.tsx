@@ -10,7 +10,7 @@ import { Group } from '@mui/icons-material'
 import { AppHeader } from '../header'
 
 interface IAppFormProps{
-    tipo: 'origem'|'destino'|'pacote' |'post'
+    tipo: 'origem'|'destino'|'pacote' |'post' |'codigo'
 }
 
 
@@ -127,11 +127,28 @@ export const AppForm: React.FC = () =>{
       }
     }
 
+    const handleEditar = (card: string) => {
+      return (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        switch(card){
+          case 'origem':
+            setTipo('origem')
+            break;
+          case 'destino':
+            setTipo('destino')
+            break;
+          case 'pacote':
+            setTipo('pacote')
+            break;
+        }
+      };
+    };
+    
+
 
     
     return(
-      <Box bgcolor={tipo!='post'?'#FFCD40':'#FFFBFB'} 
-      height={tipo=='origem'?'100vh':'100%'} 
+      <Box bgcolor={tipo!='codigo'?'#FFCD40':'#FFFBFB'} 
+      height={tipo=='origem'?'100vh':tipo=='post'?'100vh':'100%'} 
       padding={tipo!='origem'?'0 0 40px 0':'0'}>
       <Box width='80%' margin='0 auto'>
         <AppHeader/>
@@ -158,8 +175,11 @@ export const AppForm: React.FC = () =>{
                 {formValues.rua} - 
                 {formValues.numero} - 
                 {formValues.complemento}</p>
+                <Button onClick={handleEditar('origem')}>Editar</Button>
               </CardContent>
+              
             </Card>
+            
           </Grid>
 
           <Grid item xl={3} md={4} sm={12} xs={12} display={tipo=='destino'?'none':tipo=='origem'?'none':'block'}>
@@ -175,6 +195,7 @@ export const AppForm: React.FC = () =>{
                 {formDestinoValues.rua} - 
                 {formDestinoValues.numero} - 
                 {formDestinoValues.complemento}</p>
+                <Button onClick={handleEditar('destino')}>Editar</Button>
               </CardContent>
             </Card>
           </Grid>
@@ -189,6 +210,7 @@ export const AppForm: React.FC = () =>{
                 <p> <b>Aviso recebimento:</b> {packageValues.avisoRecebimento?'Sim':'Não'}</p>
                 <p> <b>Valor mercadoria:</b> R${packageValues.valorMercadoria}</p>
               </CardContent>
+              <Button onClick={handleEditar('pacote')}>Editar</Button>
             </Card>
           </Grid>
         </Grid>

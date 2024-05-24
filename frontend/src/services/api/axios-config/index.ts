@@ -7,7 +7,7 @@ const ApiDados= axios.create({
     baseURL: 'http://localhost:3333/origem'
 })
 const ApiCEP = axios.create({
-    baseURL:'viacep.com.br/ws'
+    baseURL:'http://viacep.com.br/ws'
 })
 const ApisExternas= axios.create({
     baseURL: ''

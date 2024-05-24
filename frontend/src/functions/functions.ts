@@ -68,17 +68,20 @@ export function isValidTelefone(telefone: string): boolean {
 
 
 export function isValidCEP(cep: string): boolean {
+  // Remove caracteres não numéricos da string do CEP
+  const cepNumerico = cep.replace(/[^\d]/g, '');
 
-    const cepNumerico = cep.replace(/[^\d]/g, '');
-
-    if (cepNumerico.length !== 8) {
-      return false;
-    }
-  
-    const cepRegex = /^\d{2}\.\d{3}-\d{3}$/;
-  
-    return cepRegex.test(cepNumerico);
+  // Verifica se o CEP tem 8 dígitos (5 dígitos + hífen + 3 dígitos)
+  if (cepNumerico.length !== 8) {
+    return false;
   }
+
+  // Expressão regular para validar o formato de CEP 00.000-000
+  const cepRegex = /^\d{2}\.\d{3}-\d{3}$/;
+
+  // Verifica se o CEP corresponde ao padrão
+  return cepRegex.test(cep);
+}
 
 export function limparNumeros(texto: string): string {
     return texto.replace(/\D/g, '');

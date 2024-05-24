@@ -1,12 +1,14 @@
 import {Box, Button, Card, CardContent, CardHeader, FormControlLabel, FormGroup, Grid, InputAdornment, Switch, TextField, colors} from '@mui/material'
 import { StyledForm } from './styles'
-import { IOriginDesinyInputModels, IPackageInputModels } from '../../types/inputModels'
+import { Endereco, IOriginDesinyInputModels, IPackageInputModels } from '../../types/inputModels'
 import { useContext, useState } from 'react'
 import { NumericFormat, PatternFormat } from 'react-number-format'
 import { useNavigate } from 'react-router'
 import { AppHeader } from '../header'
-import { isValidCEP, isValidCPF, isValidEmail, isValidTelefone, limparNumeros } from '../../functions/functions'
+import { isValidCEP, isValidCPF, isValidEmail, isValidTelefone, limparCEP, limparNumeros } from '../../functions/functions'
 import { number } from 'yup'
+import { CepService } from '../../services/api/cep'
+import axios from 'axios'
 
 interface IAppFormProps{
     tipo: 'origem'|'destino'|'pacote' |'post' |'codigo'
@@ -19,6 +21,9 @@ export const AppForm: React.FC = () =>{
 
     const [tipo,setTipo] = useState('origem')
 
+    const [endereco, setEndereco] = useState<Endereco | null>(null);
+    const [enderecoDestino, setEnderecoDestino] = useState<Endereco | null>(null);
+    
     const [formValues, setFormValues] = useState<IOriginDesinyInputModels>({
         nome: '',
         email: '',
@@ -61,11 +66,20 @@ export const AppForm: React.FC = () =>{
       qtdItens: NaN,
       descItens: ''
     })
+    
+    const checkCEP = async (e: React.ChangeEvent<HTMLInputElement>) =>{
+      const cep = e.target.value.replace(/\D/g,'')
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        {tipo==='destino'?setEnderecoDestino(response.data):setEndereco(response.data)}
+      } catch (error) {
+        setEndereco(null)
+      }
+
+    }
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
-      if(isValidCEP(formValues.cep.toString())){
-
-      }
       setFormValues({ ...formValues, [name]: value })
     }
 
@@ -169,15 +183,15 @@ export const AppForm: React.FC = () =>{
             <Card>
               <CardContent>
                 <h2>Origem</h2>
-                <p>{formValues.phone} - 
-                {formValues.cpf} - 
-                {formValues.cep} - 
-                {formValues.cidade} - 
-                {formValues.estado} - 
-                {formValues.bairro} - 
-                {formValues.rua} - 
-                {formValues.numero} - 
-                {formValues.complemento}</p>
+                <p>{formValues.nome} - 
+                 {formValues.cpf} - 
+                 {formValues.cep} - 
+                 {endereco?.localidade?endereco?.localidade:formValues.cidade} - 
+                 {endereco?.uf?endereco?.uf:formValues.estado} - 
+                 {endereco?.bairro?endereco?.bairro:formValues.bairro} - 
+                 {endereco?.logradouro?endereco?.logradouro:formValues.rua} - 
+                 {formValues.numero} - 
+                 {endereco?.complemento?endereco?.complemento:formValues.complemento}</p>
                 <Button onClick={handleEditar('origem')}>Editar</Button>
               </CardContent>
               
@@ -286,45 +300,66 @@ export const AppForm: React.FC = () =>{
             name='cep'
             value={tipo==='origem'?formValues.cep:formDestinoValues.cep}
             onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
+            onBlur={checkCEP}
             customInput={TextField}/>
           </Grid>
           <Grid item xs={12} sm={12} md={7} xl={5}>
             <TextField
+              aria-readonly={endereco?endereco.uf?true:false:false}
               required
               label='Estado'
               fullWidth
               name='estado'
-              value={tipo==='origem'?formValues.estado:formDestinoValues.estado}
+              value={tipo==='origem'?
+              endereco?.uf?
+              endereco.uf:
+              enderecoDestino?.uf?
+              enderecoDestino.uf:formValues.estado:formDestinoValues.estado}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6} xl={5}>
             <TextField
+              aria-readonly={endereco?endereco.localidade?true:false:false}
               required
               label='Cidade'
               fullWidth
               name='cidade'
-              value={tipo==='origem'?formValues.cidade:formDestinoValues.cidade}
+              value={tipo==='origem'?
+              endereco?.localidade?
+              endereco.localidade:
+              enderecoDestino?.localidade?
+              enderecoDestino.localidade:formValues.cidade:formDestinoValues.cidade}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6} xl={5}>
             <TextField
+              aria-readonly={endereco?endereco.bairro?true:false:false}
               required
               label='Bairro'
               fullWidth
               name='bairro'
-              value={tipo==='origem'?formValues.bairro:formDestinoValues.bairro}
+              value={tipo==='origem'?
+              endereco?.bairro?
+              endereco.bairro:
+              enderecoDestino?.bairro?
+              enderecoDestino.bairro:formValues.bairro:formDestinoValues.bairro}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={9} xl={5}>
             <TextField
+              aria-readonly={endereco?endereco.logradouro?true:false:false}
               required
               label='Rua'
               fullWidth
               name='rua'
-              value={tipo==='origem'?formValues.rua:formDestinoValues.rua}
+              value={tipo==='origem'?
+              endereco?.logradouro?
+              endereco.logradouro:
+              enderecoDestino?.logradouro?
+              enderecoDestino.logradouro:formValues.rua:formDestinoValues.rua}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
           </Grid>
@@ -350,7 +385,11 @@ export const AppForm: React.FC = () =>{
               label='Complemento'
               fullWidth
               name='complemento'
-              value={tipo==='origem'?formValues.complemento:formDestinoValues.complemento}
+              value={tipo==='origem'?
+              endereco?.complemento?
+              endereco.complemento:
+              enderecoDestino?.complemento?
+              enderecoDestino.complemento:formValues.complemento:formDestinoValues.complemento}
               onChange={tipo==='origem'?handleInputChange:handleInputDestinoChange}
             />
           </Grid>

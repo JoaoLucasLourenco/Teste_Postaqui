@@ -10,12 +10,13 @@ const ApiCEP = axios.create({
     baseURL:'http://viacep.com.br/ws'
 })
 const ApisExternas= axios.create({
-    baseURL: ''
+    baseURL: 'https://f29faec4-6487-4b60-882f-383b4054cc32.mock.pstmn.io/',
+    headers:{'Content-Type': 'application/json'}
 })
 
-ApiDados.interceptors.response.use(
+ApisExternas.interceptors.response.use(
     (response) => responseInterceptor(response),
     (error) => errorInterceptor(error)
 )
 
-export {ApiDados,ApiCEP}
+export {ApiDados,ApiCEP, ApisExternas}

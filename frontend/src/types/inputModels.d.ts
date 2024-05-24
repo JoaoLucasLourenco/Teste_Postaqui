@@ -28,13 +28,53 @@ export interface IPackageInputModels{
 
 export interface Endereco {
     cep: string;
-    logradouro: string;
-    complemento: string;
-    bairro: string;
-    localidade: string;
+    state: string;
     uf: string;
-    ibge: string;
-    gia: string;
-    ddd: string;
-    siafi: string;
-}
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+    complement: string;
+  }
+  
+  export  interface Pacote {
+    weight: string;
+    height: string;
+    width: string;
+    length: string;
+    reverse: boolean;
+    ar: boolean;
+    own_hands: boolean;
+    information: {
+      amount: string;
+      quantity: string;
+      description: string;
+    };
+  }
+  
+  export interface RespostaEnvio {
+    _id: string;
+    carrier: string;
+    price: number;
+    discount: number;
+  }
+  
+  export  interface DadosEnvio {
+    sender: {
+      fullname: string;
+      cpf: string;
+      phone: string;
+      email: string;
+      address: Endereco;
+    };
+    receiver: {
+      fullname: string;
+      cpf: string;
+      phone: string;
+      email: string;
+      address: Endereco;
+    };
+    package: Pacote;
+  }
+
+

@@ -17,7 +17,8 @@ export const AppContext = createContext<TAppContext|undefined>(undefined)
 export const AppProvider : React.FC<ICardOrigemProviderProps> =({children})=>{
     const [data,setData] = useState<IOriginDesinyInputModels>({
         nome: '',
-        email: '',  
+        email: '',
+        uf:'', 
         cpf: NaN,
         phone: NaN,
         cep: NaN,

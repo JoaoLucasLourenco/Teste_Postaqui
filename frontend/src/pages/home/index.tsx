@@ -1,18 +1,14 @@
 import React from "react";
 import { AppHeader } from "../../components";
 import { AppForm } from "../../components/form";
-import { AppContext } from "../../context/AppContext";
-
-interface IHomeProrps{
-    page: "origem"|"destino"|"pacote"|"post"
-}
+import { Box } from "@mui/material";
 
 
-export const Home : React.FC = () =>{
+
+export const Home = () =>{
         return(
-        <>
-        <AppHeader/>
-        <AppForm/>
-        </>
+            <>
+            <AppForm/>
+            </>
     )
 }
